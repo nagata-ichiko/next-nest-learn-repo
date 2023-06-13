@@ -1,0 +1,87 @@
+version: "3.8"
+services:
+  api:
+    container_name: nestjs-template-repo
+    build: ./nestjs-template-repo
+    tty: true
+    environment:
+      PORT: ${BACKEND_PORT}
+      BACKEND_URL: ${BACKEND_URL_EXPORT}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public
+      NODE_ENV: development
+      TZ: Asia/Tokyo
+    ports:
+      - "3001:${BACKEND_PORT}"
+    volumes:
+      - ./nestjs-template-repo:/api
+    depends_on:
+      - db
+    command: sh -c "npm install  && npm run build && npm run start:debug"
+  front:
+    build: ./nextjs-template-repo
+    tty: true
+    environment:
+      BACKEND_URL: ${BACKEND_URL}
+      TZ: Asia/Tokyo
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./nextjs-template-repo/src:/src
+    command: sh -c "npm install && npm run lint && npm run dev"
+
+  db:
+    image: postgres:14.2
+    platform: linux/amd64
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      TZ: "Asia/Tokyo"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5430:${POSTGRES_PORT}
+
+  schemaspy:
+    image: schemaspy/schemaspy:snapshot
+    platform: linux/amd64
+    tty: true
+    volumes:
+      - ./nestjs-template-repo/.dev/database:/output
+    environment:
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    command: >
+      java -jar schemaspy.jar
+      -u ${POSTGRES_USER}
+      -p ${POSTGRES_PASSWORD}
+      -t pgsql
+      -host ${POSTGRES_HOST}
+      -port ${POSTGRES_PORT}
+      -db ${POSTGRES_DB}
+      -connprops useSSL\\=false
+
+  swagger-api:
+    image: stoplight/prism:4
+    platform: linux/amd64
+    ports:
+      - "4010:4010"
+    command: mock -h 0.0.0.0 /openapi.yml
+    volumes:
+      - ./nestjs-template-repo/.dev/api/openapi.yml:/openapi.yml
+    profiles:
+      - "extra"
+
+  storybook:
+    build: ./nextjs-template-repo
+    tty: true
+    ports:
+      - "6006:6006"
+    volumes:
+      - ./nextjs-template-repo/app:/app
+    command: sh -c "npm install && npm run storybook"
+    profiles:
+      - "extra"
+
+volumes:
+  pgdata:

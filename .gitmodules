@@ -1,0 +1,6 @@
+[submodule "nextjs-template-repo"]
+	path = nextjs-template-repo
+	url = https://github.com/nagata-ichiko/nextjs-template-repo.git
+[submodule "nestjs-template-repo"]
+	path = nestjs-template-repo
+	url = https://github.com/nagata-ichiko/nestjs-template-repo.git
