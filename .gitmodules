@@ -4,3 +4,9 @@
 [submodule "nestjs-template-repo"]
 	path = nestjs-template-repo
 	url = https://github.com/nagata-ichiko/nestjs-template-repo.git
+[submodule "nest-lean-repo"]
+	path = nest-lean-repo
+	url = https://github.com/nagata-ichiko/nest-lean-repo.git
+[submodule "next-lean-repo"]
+	path = next-lean-repo
+	url = https://github.com/nagata-ichiko/next-lean-repo.git
