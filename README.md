@@ -6,11 +6,11 @@ web アプリ作成テンプレート
 
 1. Next テンプレートリポジトリからリポジトリを作成
 
-   `https://github.com/nagata-ichiko/nextjs-template-repo`
+   `https://github.com/nagata-ichiko/next-lean-repo`
 
 1. Nest テンプレートリポジトリからリポジトリを作成
 
-   `https://github.com/nagata-ichiko/nestjs-template-repo`
+   `https://github.com/nagata-ichiko/nest-lean-repo`
 
 1. 本テンプレートリポジトリからリポジトリを作成
 
@@ -19,6 +19,7 @@ web アプリ作成テンプレート
 1. 作成したリポジトリに合わせ、設定を変更する。
 
 # クローン方法
+
 ` git clone --recursive https://github.com/nagata-ichiko/next-nest-learn-repo.git`
 
 # 実行方法

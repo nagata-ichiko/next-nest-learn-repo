@@ -1,8 +1,8 @@
 version: "3.8"
 services:
   api:
-    container_name: nestjs-template-repo
-    build: ./nestjs-template-repo
+    container_name: nest-lean-repo
+    build: ./nest-lean-repo
     tty: true
     environment:
       PORT: ${BACKEND_PORT}
@@ -13,12 +13,12 @@ services:
     ports:
       - "3001:${BACKEND_PORT}"
     volumes:
-      - ./nestjs-template-repo:/api
+      - ./nest-lean-repo:/api
     depends_on:
       - db
     command: sh -c "npm install  && npm run build && npm run start:debug"
   front:
-    build: ./nextjs-template-repo
+    build: ./next-lean-repo
     tty: true
     environment:
       BACKEND_URL: ${BACKEND_URL}
@@ -26,7 +26,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./nextjs-template-repo/src:/src
+      - ./next-lean-repo/src:/src
     command: sh -c "npm install && npm run lint && npm run dev"
 
   db:
@@ -48,7 +48,7 @@ services:
     platform: linux/amd64
     tty: true
     volumes:
-      - ./nestjs-template-repo/.dev/database:/output
+      - ./nest-lean-repo/.dev/database:/output
     environment:
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
     command: >
@@ -68,17 +68,17 @@ services:
       - "4010:4010"
     command: mock -h 0.0.0.0 /openapi.yml
     volumes:
-      - ./nestjs-template-repo/.dev/api/openapi.yml:/openapi.yml
+      - ./nest-lean-repo/.dev/api/openapi.yml:/openapi.yml
     profiles:
       - "extra"
 
   storybook:
-    build: ./nextjs-template-repo
+    build: ./next-lean-repo
     tty: true
     ports:
       - "6006:6006"
     volumes:
-      - ./nextjs-template-repo/app:/app
+      - ./next-lean-repo/app:/app
     command: sh -c "npm install && npm run storybook"
     profiles:
       - "extra"
