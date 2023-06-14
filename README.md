@@ -42,3 +42,17 @@ web アプリ作成テンプレート
 # swagger の mock サーバー立ち上げ方法
 
 `docker-compose up -d swagger-api`
+
+# migration 方法
+
+## migration ファイル作成&migration
+
+`docker-compose run --rm api npx prisma migrate dev --name ファイル名`
+
+## うまく動かなくなったらリセット（シードファイルも一緒に入る）
+
+`docker-compose run --rm api npx prisma migrate reset`
+
+## seed ファイル実行
+
+`docker-compose run --rm api npx prisma db seed`
