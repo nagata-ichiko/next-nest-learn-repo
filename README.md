@@ -53,6 +53,6 @@ web アプリ作成テンプレート
 
 `docker-compose run --rm api npx prisma migrate reset`
 
-## seed ファイル実行
+## seed ファイル実行(初期データ)
 
 `docker-compose run --rm api npx prisma db seed`
