@@ -56,3 +56,7 @@ web アプリ作成テンプレート
 ## seed ファイル実行(初期データ)
 
 `docker-compose run --rm api npx prisma db seed`
+
+# DB 確認方法
+
+`npx prisma studio`
