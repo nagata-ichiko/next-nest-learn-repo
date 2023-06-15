@@ -16,7 +16,7 @@ services:
       - ./nest-lean-repo:/api
     depends_on:
       - db
-    command: sh -c "npm install  && npm run build && npm run start:debug"
+    command: sh -c "npm install  && npm run lint && npm run build && npm run start:debug"
   front:
     build: ./next-lean-repo
     tty: true
@@ -26,7 +26,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./next-lean-repo/src:/src
+      - ./next-lean-repo:/app
     command: sh -c "npm install && npm run lint && npm run dev"
 
   db:
@@ -78,7 +78,7 @@ services:
     ports:
       - "6006:6006"
     volumes:
-      - ./next-lean-repo/app:/app
+      - ./next-lean-repo:/app
     command: sh -c "npm install && npm run storybook"
     profiles:
       - "extra"
