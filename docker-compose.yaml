@@ -11,7 +11,7 @@ services:
       NODE_ENV: development
       TZ: Asia/Tokyo
     ports:
-      - "3001:3001"
+      - "3001:${BACKEND_PORT}"
     volumes:
       - ./nest-lean-repo:/api
     depends_on:
